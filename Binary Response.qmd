@@ -11,15 +11,54 @@ title: "Binary Response"
 
 library(tidyverse)
 
-data.clean <- read.csv("data/DataCleaningR.csv")
-data.clean.omit <- na.omit(data.clean)
+data.clean <- read_csv("data/DataCleaningR.csv")
 
-data.clean.omit$FilterMinAppear_F <- 
-  as.factor(data.clean.omit$FilterMinAppear)
-names(data.clean.omit)[names(data.clean.omit) == 'Recall'] <- 'Sensitivity'
-data.filter <- data.clean.omit[data.clean.omit$EmbeddingMethod != "BagOfWords",]
-data.filter <- data.filter[data.filter$EmbeddingMethod != "TF-IDF",]
-data.filter$ClassificationMethod <- gsub("LogisticRegression", "LogReg", data.filter$ClassificationMethod)
-data.filter$ClassificationMethod <- factor(data.filter$ClassificationMethod, levels = c("LDA","QDA","MDA","FDA","LogReg","Tree","RF"))
-data.filter$EmbeddingMethod <- factor(data.filter$EmbeddingMethod, levels = c("CBoW100","CBoW200","CBoW300","CBoW768","SG100","SG200","SG300","SG768","GloVe100","GloVe200","GloVe300","GloVe768","BERT","PCA"))
+data.filter <- data.clean %>%
+  drop_na() %>%
+  mutate(FilterMinAppear_F = factor(FilterMinAppear)) %>%
+  rename(Sensitivity = Recall) %>%
+  filter(EmbeddingMethod != "BagOfWords", EmbeddingMethod != "TF-IDF") %>%
+  mutate(ClassificationMethod = str_replace_all(ClassificationMethod, pattern = "LogisticRegression", replacement = "LogReg")) %>%
+  mutate(ClassificationMethod = factor(ClassificationMethod, levels = c("LDA","QDA","MDA","FDA","LogReg","Tree","RF")), EmbeddingMethod = factor(EmbeddingMethod, levels = c("CBoW100","CBoW200","CBoW300","CBoW768","SG100","SG200","SG300","SG768","GloVe100","GloVe200","GloVe300","GloVe768","BERT","PCA")))
+
+colrs.emb <- c("#12694f","#188c69","#21c090","#3fdeaf", "#645fab","#7570b3","#9794c7","#bebcdc","#b65002","#d95f02","#fd750d","#fd8c35","#e7298a","#66a61e")
+colrs.class <- c("#2a618d","#3881bc","#72a8d5","#91bbde","#e41a1c","#4daf4a","#327330")
+shap.emb <- c(2, 6, 14, 17, 1, 10, 13, 16,3, 5, 0, 7, 12, 15)
+shap.class <- c(15, 0, 7, 12, 1, 2, 6)
+lt <- c(1,2,3,4,5,6,1,2,3,4,5,6,1,2)
+ltc <- c(1,2,3,4,5,6,1)
+```
+
+**I WILL COME BACK AND ADD FIGURE CAPTIONS TO ALL FIGURES LATER**
+
+**ALSO NEED TO ADD TITLES TO ALL GRAPHS (MAYBE NOT NECESSARY IF ADD CAPTIONS... NEED TO THINK ABOUT)**
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| tidy: true
+#| cache: true
+#| fig-height: 10
+#| fig-width: 10
+
+CES <- data.filter %>% group_by(ClassificationMethod,EmbeddingMethod,FilterStopwords) %>% 
+  select(ClassificationMethod, EmbeddingMethod, FilterStopwords, Accuracy)
+CES.no <- CES %>% subset(FilterStopwords == "No")
+CES.yes <- CES %>% subset(FilterStopwords == "Yes")
+CES.no$CES.acc.yes <- CES.yes$Accuracy
+CES.new <- CES.no %>% summarize(CES.diff = Accuracy - CES.acc.yes)
+
+CES.new %>% 
+  ggplot(aes(x = ClassificationMethod, y = CES.diff, fill = ClassificationMethod)) +
+  geom_violin(trim=FALSE, position = position_dodge(1))  +
+  stat_summary(fun = mean, geom = "point", shape = 16, size = 2, color = '#E2DFDF') +
+  stat_summary(fun = median, geom = "point", shape = 17, size = 2) +
+  facet_wrap(~EmbeddingMethod,ncol = 4)+
+  geom_hline(yintercept = 0, linetype = 'dashed', linewidth =1)+
+  scale_fill_manual(values = colrs.class)+
+  xlab("Classification Method") +
+  ylab("Difference in Accuracy Rates")+
+  theme_bw()+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),legend.position = "none")
 ```
