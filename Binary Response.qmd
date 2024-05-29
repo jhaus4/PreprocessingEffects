@@ -1,0 +1,25 @@
+---
+title: "Binary Response"
+---
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| cache: true
+#| results: markup
+
+library(tidyverse)
+
+data.clean <- read.csv("data/DataCleaningR.csv")
+data.clean.omit <- na.omit(data.clean)
+
+data.clean.omit$FilterMinAppear_F <- 
+  as.factor(data.clean.omit$FilterMinAppear)
+names(data.clean.omit)[names(data.clean.omit) == 'Recall'] <- 'Sensitivity'
+data.filter <- data.clean.omit[data.clean.omit$EmbeddingMethod != "BagOfWords",]
+data.filter <- data.filter[data.filter$EmbeddingMethod != "TF-IDF",]
+data.filter$ClassificationMethod <- gsub("LogisticRegression", "LogReg", data.filter$ClassificationMethod)
+data.filter$ClassificationMethod <- factor(data.filter$ClassificationMethod, levels = c("LDA","QDA","MDA","FDA","LogReg","Tree","RF"))
+data.filter$EmbeddingMethod <- factor(data.filter$EmbeddingMethod, levels = c("CBoW100","CBoW200","CBoW300","CBoW768","SG100","SG200","SG300","SG768","GloVe100","GloVe200","GloVe300","GloVe768","BERT","PCA"))
+```
