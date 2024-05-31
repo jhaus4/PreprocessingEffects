@@ -33,6 +33,8 @@ ltc <- c(1,2,3,4,5,6,1)
 
 **ALSO NEED TO ADD TITLES TO ALL GRAPHS (MAYBE NOT NECESSARY IF ADD CAPTIONS... NEED TO THINK ABOUT)**
 
+***Classification \* Embedding \* Stopwords***
+
 ```{r}
 #| echo: false
 #| message: false
@@ -61,4 +63,102 @@ CES.new %>%
   ylab("Difference in Accuracy Rates")+
   theme_bw()+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),legend.position = "none")
+```
+
+***Classification \* Stopwords***
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| tidy: true
+#| cache: true
+#| fig-height: 10
+#| fig-width: 5
+
+
+data.filter %>% ggplot(aes(x = FilterStopwords, y = Accuracy, fill = FilterStopwords)) +
+  geom_violin(trim=FALSE, position = position_dodge(1))  +
+  stat_summary(fun = mean, geom = "point", shape = 16, size = 2, color = '#E2DFDF') +
+  stat_summary(fun = median, geom = "point", shape = 17, size = 2) +
+  facet_wrap(~ClassificationMethod,ncol=2)+
+  geom_hline(yintercept = 0.5, linetype = 'dashed', size =1)+
+  xlab("Filter Stopwords?") +
+  ylab("Accuracy Rate")+
+  theme_bw()+
+  theme(legend.position = "none")
+```
+
+***Embedding \* Stopwords***
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| tidy: true
+#| cache: true
+#| fig-height: 10
+#| fig-width: 10
+
+data.filter %>% 
+  ggplot(aes(x = FilterStopwords, y = Accuracy, fill = FilterStopwords)) +
+  geom_violin(trim=FALSE, position = position_dodge(1))  +
+  stat_summary(fun = mean, geom = "point", shape = 16, size = 2, color = '#E2DFDF') +
+  stat_summary(fun = median, geom = "point", shape = 17, size = 2) +
+  facet_wrap(~EmbeddingMethod,ncol = 4)+
+  geom_hline(yintercept = 0.5, linetype = 'dashed', linewidth =1)+
+  xlab("Filter Stopwords?") +
+  ylab("Accuracy Rate")+
+  theme_bw()+
+  theme(legend.position = "none")
+
+```
+
+***Classification \* Minimum Number of Appearances***
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| tidy: true
+#| cache: true
+#| fig-height: 10
+#| fig-width: 5
+
+
+data.filter %>% ggplot(aes(x = FilterMinAppear_F, y = Accuracy, fill = FilterMinAppear_F)) +
+  geom_violin(trim=FALSE, position = position_dodge(1))  +
+  stat_summary(fun = mean, geom = "point", shape = 16, size = 2, color = '#E2DFDF') +
+  stat_summary(fun = median, geom = "point", shape = 17, size = 2) +
+  facet_wrap(~ClassificationMethod,ncol = 2)+
+  geom_hline(yintercept = 0.5, linetype = 'dashed', size =1)+
+  xlab("Minimum Number of Appearances") +
+  ylab("Accuracy Rate")+
+  theme_bw()+
+  theme(legend.position = "none")
+```
+
+***Embedding \* Minimum Number of Appearances***
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| tidy: true
+#| cache: true
+#| fig-height: 10
+#| fig-width: 10
+
+
+data.filter %>% 
+  ggplot(aes(x = FilterMinAppear_F, y = Accuracy, fill = FilterMinAppear_F)) +
+  geom_violin(trim=FALSE, position = position_dodge(1))  +
+  stat_summary(fun = mean, geom = "point", shape = 16, size = 2, color = '#E2DFDF') +
+  stat_summary(fun = median, geom = "point", shape = 17, size = 2) +
+  facet_wrap(~EmbeddingMethod,ncol = 4)+
+  geom_hline(yintercept = 0.5, linetype = 'dashed', size =1)+
+  xlab("Minimum Number of Appearances") +
+  ylab("Accuracy Rate")+
+  theme_bw()+
+  theme(legend.position = "none")
 ```
