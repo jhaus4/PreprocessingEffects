@@ -35,7 +35,7 @@ ltc <- c(1,2,3,4,5,6,1)
 
 # Accuracy
 
-### ***Classification \* Embedding \* Stopwords***
+### Classification \* Embedding \* Stopwords
 
 ```{r}
 #| echo: false
@@ -67,7 +67,7 @@ CES.new %>%
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),legend.position = "none")
 ```
 
-### ***Classification \* Stopwords***
+### Classification \* Stopwords
 
 ```{r}
 #| echo: false
@@ -91,7 +91,7 @@ data.filter %>% ggplot(aes(x = FilterStopwords, y = Accuracy, fill = FilterStopw
   theme(legend.position = "none")
 ```
 
-### ***Embedding \* Stopwords***
+### Embedding \* Stopwords
 
 ```{r}
 #| echo: false
@@ -116,7 +116,7 @@ data.filter %>%
 
 ```
 
-### ***Classification \* Minimum Number of Appearances***
+### Classification \* Minimum Number of Appearances
 
 ```{r}
 #| echo: false
@@ -140,7 +140,7 @@ data.filter %>% ggplot(aes(x = FilterMinAppear_F, y = Accuracy, fill = FilterMin
   theme(legend.position = "none")
 ```
 
-### ***Embedding \* Minimum Number of Appearances***
+### Embedding \* Minimum Number of Appearances
 
 ```{r}
 #| echo: false
@@ -165,7 +165,7 @@ data.filter %>%
   theme(legend.position = "none")
 ```
 
-### ***Classification \* Embedding***
+### Classification \* Embedding
 
 ```{r}
 #| echo: false
@@ -190,7 +190,7 @@ data.filter %>%
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), legend.position = "none")
 ```
 
-### ***Classification***
+### Classification
 
 ```{r}
 #| echo: false
@@ -212,7 +212,7 @@ data.filter %>%
   ylab("Accuracy Rate")
 ```
 
-### ***Embedding***
+### Embedding
 
 ```{r}
 #| echo: false
@@ -359,4 +359,286 @@ CES.prec.new %>%
   ylab("Precision Rate")+
   theme_bw()+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),legend.position = "none")
+```
+
+### Classification \* Stopwords
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| tidy: true
+#| cache: true
+#| fig-height: 10
+#| fig-width: 5
+
+data.filter %>% ggplot(aes(x = FilterStopwords, y = Precision, fill = FilterStopwords)) +
+  geom_violin(trim=FALSE, position = position_dodge(1))  +
+  stat_summary(fun = mean, geom = "point", shape = 16, size = 2, color = '#E2DFDF') +
+  stat_summary(fun = median, geom = "point", shape = 17, size = 2) +
+  facet_wrap(~ClassificationMethod, ncol=2)+
+  geom_hline(yintercept = 0.5, linetype = 'dashed', size =1)+
+  xlab("Filter Stop Words?") +
+  ylab("Precision Rate")+
+  theme_bw()+
+  theme(legend.position = "none")
+
+```
+
+### Embedding \* Stopwords
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| tidy: true
+#| cache: true
+#| fig-height: 10
+#| fig-width: 10
+
+data.filter %>%
+  ggplot(aes(x = FilterStopwords, y = Precision, fill = FilterStopwords)) +
+  geom_violin(trim=FALSE, position = position_dodge(1))  +
+  stat_summary(fun = mean, geom = "point", shape = 16, size = 2, color = '#E2DFDF') +
+  stat_summary(fun = median, geom = "point", shape = 17, size = 2) +
+  facet_wrap(~EmbeddingMethod, ncol=4)+
+  geom_hline(yintercept = 0.5, linetype = 'dashed', size =1)+
+  xlab("Filter Stop Words?") +
+  ylab("Precision Rate")+
+  theme_bw()+
+  theme(legend.position = "none")
+
+```
+
+### Classification \* Numbers
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| tidy: true
+#| cache: true
+#| fig-height: 10
+#| fig-width: 5
+
+data.filter %>% ggplot(aes(x = FilterNumbers, y = Precision, fill = FilterNumbers)) +
+  geom_violin(trim=FALSE, position = position_dodge(1))  +
+  stat_summary(fun = mean, geom = "point", shape = 16, size = 2, color = '#E2DFDF') +
+  stat_summary(fun = median, geom = "point", shape = 17, size = 2) +
+  facet_wrap(~ClassificationMethod, ncol=2)+
+  geom_hline(yintercept = 0.5, linetype = 'dashed', size =1)+
+  xlab("Filter Numbers?") +
+  ylab("Precision Rate")+
+  theme_bw()+
+  theme(legend.position = "none")
+
+```
+
+### Embedding \* Numbers
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| tidy: true
+#| cache: true
+#| fig-height: 10
+#| fig-width: 10
+
+data.filter %>%
+  ggplot(aes(x = FilterNumbers, y = Precision, fill = FilterNumbers)) +
+  geom_violin(trim=FALSE, position = position_dodge(1))  +
+  stat_summary(fun = mean, geom = "point", shape = 16, size = 2, color = '#E2DFDF') +
+  stat_summary(fun = median, geom = "point", shape = 17, size = 2) +
+  facet_wrap(~EmbeddingMethod, ncol=4)+
+  geom_hline(yintercept = 0.5, linetype = 'dashed', size =1)+
+  xlab("Filter Numbers?") +
+  ylab("Precision Rate")+
+  theme_bw()+
+  theme(legend.position = "none") 
+```
+
+### Classification \* Minimum
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| tidy: true
+#| cache: true
+#| fig-height: 10
+#| fig-width: 5
+
+data.filter %>% ggplot(aes(x = FilterMinAppear_F, y = Precision, fill = FilterMinAppear_F)) +
+  geom_violin(trim=FALSE, position = position_dodge(1))  +
+  stat_summary(fun = mean, geom = "point", shape = 16, size = 2, color = '#E2DFDF') +
+  stat_summary(fun = median, geom = "point", shape = 17, size = 2) +
+  facet_wrap(~ClassificationMethod,ncol = 2)+
+  geom_hline(yintercept = 0.5, linetype = 'dashed', size =1)+
+  xlab("Minimum Number of Appearances") +
+  ylab("Precision Rate")+
+  theme_bw()+
+  theme(legend.position = "none")
+```
+
+### Embedding \* Minimum
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| tidy: true
+#| cache: true
+#| fig-height: 10
+#| fig-width: 10
+
+data.filter %>%
+  ggplot(aes(x = FilterMinAppear_F, y = Precision, fill = FilterMinAppear_F)) +
+  geom_violin(trim=FALSE, position = position_dodge(1))  +
+  stat_summary(fun = mean, geom = "point", shape = 16, size = 2, color = '#E2DFDF') +
+  stat_summary(fun = median, geom = "point", shape = 17, size = 2) +
+  facet_wrap(~EmbeddingMethod,ncol = 4)+
+  geom_hline(yintercept = 0.5, linetype = 'dashed', size =1)+
+  xlab("Minimum Number of Appearances") +
+  ylab("Precision Rate")+
+  theme_bw()+
+  theme(legend.position = "none") 
+```
+
+### Classification \* Embedding
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| tidy: true
+#| cache: true
+#| fig-height: 10
+#| fig-width: 10
+
+data.filter %>% 
+  ggplot(aes(x = ClassificationMethod, y = Precision, fill = ClassificationMethod)) +
+  geom_violin(trim=FALSE, position = position_dodge(1))  +
+  stat_summary(fun = mean, geom = "point", shape = 16, size = 2, color = '#E2DFDF') +
+  stat_summary(fun = median, geom = "point", shape = 17, size = 2) +
+  facet_wrap(~EmbeddingMethod, ncol=4)+
+  geom_hline(yintercept = 0.5, linetype = 'dashed', size =1)+
+  scale_fill_manual(values = colrs.class) +
+  xlab("Embedding Method") +
+  ylab("Precision Rate")+
+  theme_bw()+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), legend.position = "none")
+```
+
+### Classification
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| tidy: true
+#| cache: true
+#| fig-height: 10
+#| fig-width: 10
+
+data.filter %>% 
+  ggplot(aes(x = ClassificationMethod, y = Precision, fill = ClassificationMethod)) +
+   geom_violin(trim=FALSE) +
+   stat_summary(fun = mean, geom = "point", shape = 16, size = 2, color = '#E2DFDF') +
+  stat_summary(fun = median, geom = "point", shape = 17, size = 2) +
+  geom_hline(yintercept = 0.5, linetype = 'dashed', size =1)+
+  scale_fill_manual(values = colrs.class)+
+  theme_bw()+
+  theme(legend.position = "none") +
+  xlab("Classification Method") +
+  ylab("Precision Rate")
+```
+
+### Embedding
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| tidy: true
+#| cache: true
+#| fig-height: 10
+#| fig-width: 10
+
+data.filter %>% ggplot(aes(x = EmbeddingMethod, y = Precision, fill = EmbeddingMethod)) +
+   geom_violin(trim=FALSE) +
+   stat_summary(fun = mean, geom = "point", shape = 16, size = 2, color = '#E2DFDF') +
+  stat_summary(fun = median, geom = "point", shape = 17, size = 2) +
+  geom_hline(yintercept = 0.5, linetype = 'dashed', size =1)+
+  scale_fill_manual(values = colrs.emb)+
+  theme_bw()+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), legend.position = "none")+
+  xlab("Embedding Method") +
+  ylab("Precision Rate")
+```
+
+### Stopwords
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| tidy: true
+#| cache: true
+#| fig-height: 10
+#| fig-width: 10
+
+data.filter %>% ggplot(aes(x = FilterStopwords, y = Precision, fill = FilterStopwords)) +
+  geom_violin(trim=FALSE) +
+  stat_summary(fun = mean, geom = "point", shape = 16, size = 2, color = '#E2DFDF') +
+  stat_summary(fun = median, geom = "point", shape = 17, size = 2) +
+  geom_hline(yintercept = 0.5, linetype = 'dashed', size =1)+
+  theme_bw()+
+  theme(legend.position = "none") +
+  xlab("Filter Stop Words?") +
+  ylab("Precision Rate")
+```
+
+### Minimum
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| tidy: true
+#| cache: true
+#| fig-height: 10
+#| fig-width: 10
+
+data.filter %>% ggplot(aes(x = FilterMinAppear_F, y = Precision, fill = FilterMinAppear_F)) +
+  geom_violin(trim=FALSE) +
+  stat_summary(fun = mean, geom = "point", shape = 16, size = 2, color = '#E2DFDF') +
+  stat_summary(fun = median, geom = "point", shape = 17, size = 2) +
+  geom_hline(yintercept = 0.5, linetype = 'dashed', size =1)+
+  theme_bw()+
+  theme(legend.position = "none") +
+  xlab("Minimum Number of Appearances") +
+  ylab("Precision Rate")
+```
+
+### Lowercase
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| tidy: true
+#| cache: true
+#| fig-height: 10
+#| fig-width: 10
+
+data.filter %>% ggplot(aes(x = ConvertLower, y = Precision, fill = ConvertLower)) +
+  geom_violin(trim=FALSE) +
+  stat_summary(fun = mean, geom = "point", shape = 16, size = 2, color = '#E2DFDF') +
+  stat_summary(fun = median, geom = "point", shape = 17, size = 2) +
+  geom_hline(yintercept = 0.5, linetype = 'dashed', size =1)+
+  theme_bw()+
+  theme(legend.position = "none") +
+  xlab("Convert Lower?") +
+  ylab("Precision Rate")
 ```
