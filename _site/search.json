@@ -4,6 +4,6 @@
     "href": "Binary Response.html",
     "title": "Binary Response",
     "section": "",
-    "text": "I WILL COME BACK AND ADD FIGURE CAPTIONS TO ALL FIGURES LATER\nALSO NEED TO ADD TITLES TO ALL GRAPHS (MAYBE NOT NECESSARY IF ADD CAPTIONS… NEED TO THINK ABOUT)\nClassification * Embedding * Stopwords\n\n\n\n\n\n\n\n\n\nClassification * Stopwords\n\n\n\n\n\n\n\n\n\nEmbedding * Stopwords\n\n\n\n\n\n\n\n\n\nClassification * Minimum Number of Appearances\n\n\n\n\n\n\n\n\n\nEmbedding * Minimum Number of Appearances"
+    "text": "I WILL COME BACK AND ADD FIGURE CAPTIONS TO ALL FIGURES LATER\nALSO NEED TO ADD TITLES TO ALL GRAPHS (MAYBE NOT NECESSARY IF ADD CAPTIONS… NEED TO THINK ABOUT)\n\nAccuracy\n\nClassification * Embedding * Stopwords\n\n\n\n\n\n\n\n\n\n\n\nClassification * Stopwords\n\n\n\n\n\n\n\n\n\n\n\nEmbedding * Stopwords\n\n\n\n\n\n\n\n\n\n\n\nClassification * Minimum Number of Appearances\n\n\n\n\n\n\n\n\n\n\n\nEmbedding * Minimum Number of Appearances\n\n\n\n\n\n\n\n\n\n\n\nClassification * Embedding\n\n\n\n\n\n\n\n\n\n\n\nClassification\n\n\n\n\n\n\n\n\n\n\n\nEmbedding\n\n\n\n\n\n\n\n\n\n\n\nStop words\n\n\n\n\n\n\n\n\n\n\n\nMinimum number of appearances\n\n\n\n\n\n\n\n\n\n\n\nNumbers\n\n\n\n\n\n\n\n\n\n\n\n\nPrecision\n\nClassification * Embedding * Min Appearances\n\n\n\n\n\n\n\n\n\n\n\nClassification * Embedding * Stopwords"
   }
 ]
